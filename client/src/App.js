@@ -1,7 +1,25 @@
 import logo from './logo.svg';
 import './App.css';
 
+import { useState, useEffect } from 'react';
+
 function App() {
+
+  const [hello, setHello] = useState('no data');
+
+
+  const callApi = () => {
+    fetch('http://localhost:9000/newroute')
+      .then(r => r.text())
+      .then(resp => {
+        setHello(resp)
+      })
+  }
+
+  useEffect(() => {
+    callApi()
+  }, [])
+
   return (
     <div className="App">
       <header className="App-header">
@@ -15,7 +33,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Learn React {hello}
         </a>
       </header>
     </div>
